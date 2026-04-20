@@ -1,0 +1,21 @@
+Scanned 1 SQL files.
+[WARN ] demo/dirty_model.sql:4  select-star
+        SELECT * in a model. Name every column you need; protects against upstream schema changes and cuts scan cost.
+        > SELECT *
+
+[ERROR] demo/dirty_model.sql:11  row-number-as-key
+        ROW_NUMBER() used as surrogate key. Non-deterministic across runs; use a deterministic hash (e.g. dbt_utils.generate_surrogate_key).
+        > ROW_NUMBER() OVER (ORDER BY updated_at) AS order_sk,
+
+[WARN ] demo/dirty_model.sql:5  hardcoded-schema
+        Hardcoded fully-qualified name. In dbt projects, prefer ref() / source() so environments stay isolated.
+        > FROM ANALYTICS.RAW.ORDERS
+
+[WARN ] demo/dirty_model.sql:14  now-in-logic
+        Using CURRENT_DATE / NOW() / SYSDATE inside a model breaks idempotency. Parameterize by the orchestrator-provided interval boundary.
+        > CURRENT_TIMESTAMP AS loaded_at,
+
+[WARN ] demo/dirty_model.sql:6  where-1-equals-1
+        WHERE 1=1 with no additional conditions is a debugging leftover. Remove or complete.
+        > WHERE 1=1
+

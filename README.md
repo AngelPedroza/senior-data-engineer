@@ -10,6 +10,14 @@ npx skills add AngelPedroza/senior-data-engineer
 
 This registers the skill with your Claude Code / Claude Agent SDK environment. Once installed, the skill is auto-invoked when you ask data-engineering questions (design, review, debugging, modeling, DataOps).
 
+## Quick demo — catching real bugs in SQL
+
+Pointed at a realistic sloppy dbt model ([`demo/dirty_model.sql`](./demo/dirty_model.sql)), `scripts/sql_anti_patterns.py` flags **5 findings (1 error, 4 warnings)** in under a second — no config, no cloud SDKs, pure Python stdlib:
+
+![sql_anti_patterns.py demo output](./demo/sql_anti_patterns_demo.svg)
+
+Every finding is actionable: named rule ID, a one-line explanation, and the offending snippet. Exit code is non-zero when findings exist, so it drops straight into CI. The other five scripts (`dbt_project_audit.py`, `dag_idempotency_check.py`, `schema_contract_diff.py`, `data_profile.py`, `lifecycle_checklist.py`) follow the same shape — see [What it covers](#what-it-covers) below.
+
 ## What it covers
 
 **Six-phase workflow** inline in `SKILL.md`:
